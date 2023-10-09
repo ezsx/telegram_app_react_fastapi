@@ -1,0 +1,49 @@
+{
+  "users":[
+    {
+      "id": "0001",
+      "username": "exonys",
+      "tasks": []
+    },
+    {
+      "id": "0002",
+      "username": "XZ7kto"
+    }
+  ],
+  "tasks":[
+    {
+      "task_id": "0001",
+      "delegated_to_username": "XZ7kto",
+      "created_by_username": "exonys",
+      "deadline_date": "2023-10-09 23:59",
+      "content": "Make a backend",
+      "status": false,
+      "priority": 1
+    },
+    {
+      "task_id": "0002",
+      "delegated_to_username": "exonys",
+      "created_by_username": "XZ7kto",
+      "deadline_date": "2023-10-09 23:59",
+      "content": "Make a frontend",
+      "status": false,
+      "priority": 1
+    }
+  ],
+  "user_tasks": [
+    {
+      "user_id": "0001",
+      "task_id": [],
+      "completed_date": ""
+    },
+    {
+      "user_id": "0002",
+      "task_id": [],
+      "completed_date": ""
+    }
+  ]
+}
+
+
+
+

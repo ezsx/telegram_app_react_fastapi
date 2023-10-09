@@ -1,0 +1,28 @@
+.user {
+  width: 100%;
+  height: 50px;
+}
+.user ul {
+  display: flex;
+  flex-direction: column;
+}
+.user ul li {
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  justify-content: flex-start;
+  align-items: center;
+  border: solid 1px #000;
+  border-radius: 15px;
+}
+.user ul li input {
+  width: 20px;
+  height: 20px;
+}
+.user ul li img {
+  width: 50px;
+  height: 50px;
+  margin: 0 15px;
+}
+
+/*# sourceMappingURL=User.css.map */

@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/tg_bot/static/css/main.206cc17f.css",
-    "main.js": "/tg_bot/static/js/main.5b74f074.js",
-    "index.html": "/tg_bot/index.html",
-    "main.206cc17f.css.map": "/tg_bot/static/css/main.206cc17f.css.map",
-    "main.5b74f074.js.map": "/tg_bot/static/js/main.5b74f074.js.map"
+    "main.css": "/telegram_app_react_fastapi/static/css/main.206cc17f.css",
+    "main.js": "/telegram_app_react_fastapi/static/js/main.5b74f074.js",
+    "index.html": "/telegram_app_react_fastapi/index.html",
+    "main.206cc17f.css.map": "/telegram_app_react_fastapi/static/css/main.206cc17f.css.map",
+    "main.5b74f074.js.map": "/telegram_app_react_fastapi/static/js/main.5b74f074.js.map"
   },
   "entrypoints": [
     "static/css/main.206cc17f.css",

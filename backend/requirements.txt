@@ -1,0 +1,3 @@
+fastapi[all]
+psycopg[binary]
+psycopg[pool]

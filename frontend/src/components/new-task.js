@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {formatTime} from './formatTime'
 
 
+
 const NewTask = (props) => {
 
+    //create a state that includes an object with values ​​for the new task
     const [newTask, setNewTask] = useState({
         "status": false,
         "content": '',
@@ -11,13 +13,15 @@ const NewTask = (props) => {
         "priority": null,
         "created_by_username": props.username
     })
-
+    //create a state that includes an object with the value of the current date entered into the input
     const [dateInputValue, setDateInputValue] = useState('');
+    //create a state that includes an object with the value of the current time entered into the input
     const [timeInputValue, setTimeInputValue] = useState('');
 
+
+    //create a user effect that will update the state with the data of the new task every time the values ​​in the inputs change
     useEffect(()=>{
         setNewTask(newTask => ({...newTask, deadline_date: `${dateInputValue} ${timeInputValue}`}))
-        console.log(newTask)
     },[dateInputValue,timeInputValue])
 
     const handleTextInputChange = (event) => {
@@ -30,9 +34,9 @@ const NewTask = (props) => {
         setTimeInputValue(event.target.value);
     };
 
-
-    const postNewTask = async () => {
-        fetch(`http://127.0.0.1:8000/tasks/NewTask/`, {
+    //create a function for sending new task data to the database
+    const postNewTask = () => {
+        fetch(`${props.server_ip}tasks/NewTask/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +44,10 @@ const NewTask = (props) => {
             body: JSON.stringify(newTask),
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data);
+                props.getCreatedTasks();
+            })
             .catch(error => console.log(error))
     }
 
@@ -79,7 +86,6 @@ const NewTask = (props) => {
                 <button onClick={() => {
                     if (newTask.content!=='' && newTask.priority!==null && dateInputValue!=='' && timeInputValue!==''){
                         postNewTask()
-                        props.getCreatedTasks()
                         props.toggle()
                     }else alert('Fill a form')
                 }}>Send

@@ -32,6 +32,10 @@
   background: var(--tg-theme-secondary-bg-color, #000);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  padding-left: 5px;
+  box-sizing: border-box;
 }
 .task .task-inner > div p {
   height: auto;
@@ -47,22 +51,28 @@
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
-  padding: 10px 10px 0 5px;
-  justify-content: space-between;
+  padding: 10px 10px 0 0;
+  justify-content: flex-start;
 }
 .task .task-inner > div div p {
   padding: 0 5px 10px 5px;
   color: #4b4b4b;
+  width: fit-content;
 }
 .task .task-inner > div div .task-check-box {
+  position: absolute;
+  display: unset;
+  top: -10px;
+  right: -10px;
   box-sizing: border-box;
-  min-width: 30px;
-  min-height: 30px;
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(180deg, #D7B258, #E57770);
+  min-width: 40px;
+  min-height: 40px;
+  width: 40px;
+  height: 40px;
+  background: #ff3427;
+  padding: 0;
   border-left: 0;
-  border-radius: 50%;
+  border-radius: 40%;
 }
 .task .task-buttons {
   margin-top: 10px;

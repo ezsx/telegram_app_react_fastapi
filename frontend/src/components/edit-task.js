@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 
 
+
 const EditTask = (props) => {
 
+    //create a state that includes an object with values ​​for the edited task
     const [editTask, setEditTask] = useState({
-        "task_id": props.task.id,
+        "task_id": props.task.task_id,
         "status": props.task.status,
         "content": props.task.content,
         "deadline_date": props.task.deadline_date,
@@ -22,8 +24,9 @@ const EditTask = (props) => {
         setTimeInputValue(event.target.value);
     };
 
+    //create a function for sending edited task data to the database
     const postEditTask = () => {
-        fetch(`http://127.0.0.1:8000/tasks/EditTask`, {
+        fetch(`${props.server_ip}tasks/EditTask`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +34,10 @@ const EditTask = (props) => {
             body: JSON.stringify(editTask),
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data)
+                props.getCreatedTasks()
+            })
             .catch(error => console.log(error))
     }
 
@@ -68,8 +74,8 @@ const EditTask = (props) => {
                 </div>
                 <button onClick={() => {
                     setEditTask({...editTask, date: `${dateInputValue} ${timeInputValue}`});
+                    //call the function for sending edited task data to the database
                     postEditTask()
-                    props.getCreatedTasks()
                     props.toggle()
                     }}>Send
                 </button>

@@ -1,5 +1,6 @@
 {
   "name": "react-web",
+  "author": "Vlashex   https://github.com/Vlashex",
   "version": "0.1.0",
   "homepage": "https://Vlashex.github.io/tg_bot/",
   "private": true,
@@ -11,6 +12,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "sass-loader": "^13.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -43,7 +45,7 @@
     "@testing-library/react": "^14.0.0",
     "gh-pages": "^6.0.0",
     "lib": "^5.1.0",
-    "react-router-dom": "^6.16.0",
+    "sass": "^1.69.0",
     "types": "^0.1.1"
   }
 }

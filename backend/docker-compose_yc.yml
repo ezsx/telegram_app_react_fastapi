@@ -1,0 +1,33 @@
+version: "3.4"
+
+services:
+    backend:
+        restart: always
+        image: cr.yandex/crpqv14d70qu8f1lu2me/telegram-backend:latest
+        command: bash -c "uvicorn router:app --host 0.0.0.0 --port ${SERVICE_PORT} --reload"
+
+        env_file:
+            - .env
+#        volumes:
+#            - ./app:/app
+
+        ports:
+            - "${SERVICE_PORT}:${SERVICE_PORT}"
+        networks:
+            - default
+
+    database:
+        restart: always
+        image: cr.yandex/crpqv14d70qu8f1lu2me/pg:latest
+        command: ["postgres", "-D", "/var/lib/postgresql/data"]
+        ports:
+            - "0.0.0.0:${POSTGRES_PORT}:${POSTGRES_PORT}"
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        volumes:
+            - /var/db/data:/var/lib/postgresql/data
+        networks:
+            - default
+

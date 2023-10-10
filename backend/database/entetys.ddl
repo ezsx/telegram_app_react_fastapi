@@ -3,10 +3,10 @@ drop table Tasks;
 drop table users;
 
 
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users(
     username VARCHAR(255) PRIMARY KEY not null
 );
-CREATE TABLE Tasks (
+CREATE TABLE IF NOT EXISTS Tasks (
     id SERIAL PRIMARY KEY,
     created_by VARCHAR(255) REFERENCES Users(username),
     status bool,
@@ -14,7 +14,7 @@ CREATE TABLE Tasks (
     deadline VARCHAR(255),
     priority INT
 );
-CREATE TABLE User_Tasks (
+CREATE TABLE IF NOT EXISTS User_Tasks (
     username  VARCHAR(255) REFERENCES Users(username),
     task_id INT REFERENCES Tasks(id)
 );
@@ -75,6 +75,7 @@ VALUES
 insert INTO Users (username)
 VALUES
 ('exonys');
+
 
 
 

@@ -1,28 +1,22 @@
-from datetime import datetime
+import logging
 from typing import List
-# from fastapi_cors import CORS
-
+from resources.crud import *
 from fastapi import FastAPI
-from resources.crud import Database
 from resources.schemas import Tasks, TasksWithUsername, CreateTask, EditTask, DelegatedTasks
 from fastapi.middleware.cors import CORSMiddleware
 
-# from resources.service import process_sql_results
-
 app = FastAPI()
 
-db = Database()
+"""
+Add CORS middleware support
+The middleware responds to certain types of HTTP requests. It adds appropriate CORS headers to the response
+CORS or "Cross-Origin Resource Sharing" refers to situations when a frontend running in a browser has JavaScript code
+that communicates with a backend, and the backend is in a different "origin" than the frontend.
+"""
 
 origins = [
-    "http://localhost:3000",  # React App
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
-    "http://127.0.0.1"
+    "*"
 ]
-
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -34,9 +28,25 @@ app.add_middleware(
 )
 
 
+# Function to be called when the server starts
+@app.on_event("startup")
+async def open_pool():
+    await pool.open()
+    await init_db()
+    logging.debug(f'=> pool open: ')
+
+
+# Function to be called when the server shuts down
+@app.on_event("shutdown")
+async def close_pool():
+    await pool.close()
+    logging.debug('=> pool close /)')
+
+
+# API endpoint to get created tasks
 @app.get("/tasks/CreatedTasks/", response_model=List[Tasks])
-def get_created_tasks(username: str):
-    tasks = db.get_created_tasks(username)
+async def api_get_created_tasks(username: str):
+    tasks = await get_created_tasks(username)
     if not tasks:
         return []
     return [Tasks(
@@ -48,11 +58,10 @@ def get_created_tasks(username: str):
     ) for field_task in tasks]
 
 
-# написать функцию получения юзернейма создателя задания
-
+# API endpoint to get received tasks
 @app.get("/tasks/ReceivedTasks/", response_model=List[TasksWithUsername])
-def get_received_tasks(username: str):
-    tasks_with_user = db.get_received_tasks(username)
+async def api_get_received_tasks(username: str):
+    tasks_with_user = await get_received_tasks(username)
     if not tasks_with_user:
         return []
     return [TasksWithUsername(
@@ -65,9 +74,10 @@ def get_received_tasks(username: str):
     ) for field_task in tasks_with_user]
 
 
+# API endpoint to get delegated tasks
 @app.get("/tasks/DelegatedTasks/", response_model=List[DelegatedTasks])
-def get_delegated_tasks(username: str):
-    tasks_with_user = db.get_delegated_tasks(username)
+async def api_get_delegated_tasks(username: str):
+    tasks_with_user = await get_delegated_tasks(username)
     print(tasks_with_user)
     if not tasks_with_user:
         return []
@@ -81,44 +91,43 @@ def get_delegated_tasks(username: str):
     ) for field_task in tasks_with_user]
 
 
+# API endpoint to create a new task
 @app.post("/tasks/NewTask/")
-def create_task(task: CreateTask):
-    db.create_task(task.created_by_username, task.status, task.content, task.deadline_date, task.priority)
+async def api_create_task(task: CreateTask):
+    await create_task(task.created_by_username, task.status, task.content, task.deadline_date, task.priority)
     return {"message": "Task created successfully"}
 
 
+# API endpoint to edit a task
 @app.post("/tasks/EditTask/")
-def edit_task(task: EditTask):
-    db.update_task(task.task_id, task.status, task.content, task.deadline_date, task.priority)
+async def api_edit_task(task: EditTask):
+    await update_task(task.task_id, task.status, task.content, task.deadline_date, task.priority)
     return {"message": "Task edited successfully"}
 
 
-#
-# @app.post("/users/NewUser", response_model=Users)
-# def create_user(user: Users):
-#     db.create_user(user.username)
-#     return {"message": "User created successfully"}
-
-
+# API endpoint to delete a task
 @app.post("/tasks/Delete/")
-def delete_task(task_id: int):
-    db.delete_task(task_id)
+async def api_delete_task(task_id: int):
+    await delete_task(task_id)
     return {"message": "Task deleted successfully"}
 
 
+# API endpoint to delegate a task to a username
 @app.post("/tasks/DelegateToUsername/")
-def delegate_task(task_id: int, username: str):
-    response = db.delegate_task(task_id, username)
+async def api_delegate_task(task_id: int, username: str):
+    response = await delegate_task(task_id, username)
     return response
 
 
+# API endpoint to change the status of a task
 @app.post("/tasks/Status/")
-def change_status_task(task_id: int, status: bool):
-    db.change_status_task(task_id, status)
+async def api_change_status_task(task_id: int, status: bool):
+    await change_status_task(task_id, status)
     return {"message": "Task status changed successfully"}
 
 
+# API endpoint to initialize a user
 @app.post("/users/Create/")
-def initialize_user(username: str):
-    db.initialize_user(username)
+async def api_initialize_user(username: str):
+    await initialize_user(username)
     return {"message": "User existing now"}

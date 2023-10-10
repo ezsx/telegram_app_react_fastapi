@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 
+
 const DelegateTask = (props) => {
 
-
+    //create a state that will store the username values ​​from the input
     const [inputValue, setInputValue] = useState('');
 
+    //create a function that will send the username from the input to the state
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
 
+    //create a function that will send the username and task id to the database
     const postDelegateToUsername = () => {
-        fetch(`http://127.0.0.1:8000/tasks/DelegateToUsername/?task_id=${props.Id}&username=${inputValue}`, {
+        fetch(`${props.server_ip}tasks/DelegateToUsername/?task_id=${props.Id}&username=${inputValue}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,9 +24,8 @@ const DelegateTask = (props) => {
                 // Process the data here
                     if (data.message==="User does not exist"){
                         alert("This user is not yet in our application")
-                        // window.Telegram.WebApp.showPopup(data.message)
                     }
-                console.log(data);
+                    props.getCreatedTasks();
                 })
             .catch(error => console.log(error))
     }
@@ -43,9 +45,8 @@ const DelegateTask = (props) => {
                     </div>
                 </div>
                 <button onClick={() => {
+                    //call a function that will send the username and task id to the database
                     postDelegateToUsername()
-                    props.getCreatedTasks()
-                    props.getDelegatedTasks()
                     props.toggle()
                 }}>Send
                 </button>

@@ -9,6 +9,8 @@ export function formatTime() {
     let month = now.getMonth() + 1;
     let day = now.getDate();
 
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
     return `${year}-${month}-${day} ${hours}:${minutes}`
 }
 

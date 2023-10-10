@@ -8,9 +8,9 @@
 
 
   .task-inner {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 
     .task-priority {
       width: 5px;
@@ -30,60 +30,59 @@
       margin: 5px 5px 0 0;
     }
 
-      &>div{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        background: var(--tg-theme-secondary-bg-color, #000);
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
-        position: relative;
-        overflow: hidden;
-        padding-left: 5px;
+    &>div{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background: var(--tg-theme-secondary-bg-color, #000);
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      padding-left: 5px;
+      box-sizing: border-box;
+
+      p{
+        height: auto;
         box-sizing: border-box;
+        width: 100%;
+        text-align: start;
+        margin: 0;
+        background: 0;
+        padding: 10px 5px;
+      }
 
-        p{
-          height: auto;
-          box-sizing: border-box;
-          width: 100%;
-          text-align: start;
-          margin: 0;
-          background: 0;
-          padding: 10px 5px;
+      div{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        padding: 10px 10px 0 0;
+        justify-content: flex-start;
+
+        p {
+          padding: 0 5px 10px 5px;
+          color: #4b4b4b;
+          width: fit-content;
         }
-
-        div{
-          width: 100%;
-          display: flex;
-          flex-direction: row;
+        .task-check-box {
+          position: absolute;
+          display: unset;
+          top: -10px;
+          right: -10px;
           box-sizing: border-box;
-          padding: 10px 10px 0 0;
-          justify-content: flex-start;
-
-          p {
-            padding: 0 5px 10px 5px;
-            color: #4b4b4b;
-            width: fit-content;
-          }
-          .task-check-box {
-            position: absolute;
-            display: unset;
-            top: -10px;
-            right: -10px;
-            box-sizing: border-box;
-            min-width: 40px;
-            min-height: 40px;
-            width: 40px;
-            height: 40px;
-            background: #ff3427;
-            padding: 0;
-            border-left: 0;
-            border-radius: 40%;
-          }
+          min-width: 40px;
+          min-height: 40px;
+          width: 40px;
+          height: 40px;
+          background: #ff3427;
+          padding: 0;
+          border-left: 0;
+          border-radius: 40%;
         }
       }
     }
-
+  }
 
   .task-buttons {
     margin-top: 10px;
@@ -117,7 +116,6 @@
         background: var(--tg-theme-bg-secondary-color, #000);
 
       }
-
     }
   }
 }
